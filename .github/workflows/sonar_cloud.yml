@@ -6,6 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: Build
+        uses: actions/setup-node@v1
+      - name: yarn test --coverage
+        run: |
+          yarn install
+          CI=true yarn test --coverage
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
