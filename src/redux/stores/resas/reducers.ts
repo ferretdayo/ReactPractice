@@ -1,19 +1,16 @@
 import { ResasState, ResasActionTypes, FETCH_PREFECTURES } from './types'
 
 const initialState: ResasState = {
-  prefectures: []
+  prefectures: [],
 }
 
-export function resasReducer(
-  state = initialState,
-  action: ResasActionTypes
-): ResasState {
+export function resasReducer(state = initialState, action: ResasActionTypes): ResasState {
   switch (action.type) {
-    case FETCH_PREFECTURES: 
+    case FETCH_PREFECTURES:
       return {
-        prefectures: action.payload
+        prefectures: action.payload,
       }
-    default: 
+    default:
       return state
   }
 }

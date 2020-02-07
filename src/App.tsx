@@ -16,37 +16,37 @@ import { CounterState } from './redux/stores/counter/types'
 import { ResasState } from './redux/stores/resas/types'
 
 type Props = {
-  counter: CounterState,
-  resas: ResasState,
-  incrementCount: (count: number) => void,
-  decrementCount: (count: number) => void,
-  syncChangePrefectures: () => void,
+  counter: CounterState
+  resas: ResasState
+  incrementCount: (count: number) => void
+  decrementCount: (count: number) => void
+  syncChangePrefectures: () => void
 }
 
 const App: React.FC<Props> = ({
   counter = {
     counter: {
       count: 0,
-      date: moment().toDate()
-    }
+      date: moment().toDate(),
+    },
   },
   resas = {
-    prefectures: []
+    prefectures: [],
   },
-  incrementCount = (count: number) => count+1,
-  decrementCount = (count: number) => count-1,
-  syncChangePrefectures = _.noop
+  incrementCount = (count: number) => count + 1,
+  decrementCount = (count: number) => count - 1,
+  syncChangePrefectures = _.noop,
 }: Props) => {
   const { count, date } = counter.counter
 
-  const onClickIncrementButton = (e: MouseEvent<HTMLButtonElement>) => incrementCount(count+1)
-  const onClickDecrementButton = (e: MouseEvent<HTMLButtonElement>) => decrementCount(count-1)
+  const onClickIncrementButton = (e: MouseEvent<HTMLButtonElement>) => incrementCount(count + 1)
+  const onClickDecrementButton = (e: MouseEvent<HTMLButtonElement>) => decrementCount(count - 1)
   const onClickResasDataFetchButton = (e: MouseEvent<HTMLButtonElement>) => syncChangePrefectures()
 
   return (
     <div className="App">
       <header className="App-header">
-        <Title text={"カウンターアプリ"} color={Color.WHITE}></Title>
+        <Title text={'カウンターアプリ'} color={Color.WHITE}></Title>
         <Text text={count.toString()} color={Color.WHITE}></Text>
         <Text text={date.toLocaleString()}></Text>
         <FlexContainer>
@@ -54,10 +54,11 @@ const App: React.FC<Props> = ({
           <Button label="足すよ！押して！" onClick={onClickIncrementButton}></Button>
         </FlexContainer>
         <div>
-          <div style={{height: '300px', overflowY: 'scroll'}}>
-            {resas.prefectures.length > 0 && resas.prefectures.map((prefecture) => {
-              return (<div key={prefecture.prefCode}>{prefecture.prefName || "a"}</div>)
-            })}
+          <div style={{ height: '300px', overflowY: 'scroll' }}>
+            {resas.prefectures.length > 0 &&
+              resas.prefectures.map(prefecture => {
+                return <div key={prefecture.prefCode}>{prefecture.prefName || 'a'}</div>
+              })}
           </div>
           <Button label="Resasからデータ取得" onClick={onClickResasDataFetchButton}></Button>
         </div>
@@ -67,7 +68,7 @@ const App: React.FC<Props> = ({
 }
 
 const FlexContainer = styled.div`
-  display: flex
+  display: flex;
 `
 
 const mapStateToProps = (state: RootState) => {
@@ -83,7 +84,4 @@ const mapDispatchToProps = {
   syncChangePrefectures,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
